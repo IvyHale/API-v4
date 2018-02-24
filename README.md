@@ -8,7 +8,7 @@ https://cards.virgilsecurity.com/v4
 
 
 ## AUTHORIZATION
-The Authorization HTTP header is mandatory for API calls that are related to the Virgil Cards with scope = "application" and is skipped for Virgil Cards with scope = "global". An access tokens for every application can be retrieved on the Virgil Development Portal.
+The Authorization HTTP header is mandatory for API calls that are related to the Virgil Cards with scope = "application" and is skipped for Virgil Cards with scope = "global". An access tokens for every application can be retrieved on the [Virgil Development Portal]().
 The Authorization Header:
 
 ```
@@ -72,6 +72,14 @@ info = {
 ```
 
 Each Virgil Card is created by passing the contentSnapshot, which contains all data related to the Virgil Card, and is represented as a JSON.
+The content snapshot will persist alongside the Virgil Card, and is not supposed to be changed during the Virgil Card's lifetime. It can be used by the Virgil Card's owner and the application service to make sure the Virgil Card's data was not changed by a 3rd-party.
+
+```
+contentSnapshot       = BASE64(virgilCardJsonData)
+virgilCardFingerprint = SHA256(virgilCardJsonData)
+virgilCardId          = HEX(virgilCardFingerprint)
+```
+
 The JSON representation:
 
 ```
@@ -86,19 +94,18 @@ requestJsonData = {
             "device_name":"Space grey one"}}
 ```
 
-The content snapshot will persist alongside the Virgil Card, and is not supposed to be changed during the Virgil Card's lifetime. It can be used by the Virgil Card's owner and the application service to make sure the Virgil Card's data was not changed by a 3rd-party.
-
-```
-contentSnapshot       = BASE64(virgilCardJsonData)
-virgilCardFingerprint = SHA256(virgilCardJsonData)
-virgilCardId          = HEX(virgilCardFingerprint)
-```
-
 
 ## CREATE CARD ENDPOINT
 
 The endpoint creates a Virgil Card entity.
 The Virgil Card creation action requires an authorization header from the Virgil Card owner which is performed via the additional signatures parameter. It must be an associative array with all necessary information about card signers.
+
+To create a confirmed Virgil Card, it's necessary to delegate the card's creation to the [Virgil RA]() service. The Virgil Card will be marked as confirmed as long as the Virgil Identity sign was passed.
+In order to create an unconfirmed, segregated Virgil Card, one must simply set the scope request parameter to "application" and pass a valid application sign item in the signs list;
+Beware that to create a Global Virgil Card, it's mandatory to perform a call to the [Virgil Registration Authority]() service instead of the Virgil Cards service.
+The request that creates a Virgil Card contains two signed items: for the application holder and for the application.
+
+
 
 ### Request Info
 ```
@@ -108,6 +115,7 @@ Authorization          Required
 ```
 
 ### Request Body
+
 ```
 {
     "content_snapshot":"eyJwdWJsaWNfa2V5IjoiTFMwdExTMU...",
@@ -138,11 +146,8 @@ Authorization          Required
     }
 }
 ```
-To create a confirmed Virgil Card, it's necessary to delegate the card's creation to the Virgil RA service. The Virgil Card will be marked as confirmed as long as the Virgil Identity sign was passed.
-In order to create an unconfirmed, segregated Virgil Card, one must simply set the scope request parameter to "application" and pass a valid application sign item in the signs list;
-Beware that to create a Global Virgil Card, it's mandatory to perform a call to the Virgil Registration Authority service instead of the Virgil Cards service.
-The request that creates a Virgil Card contains two signed items: for the application holder and for the application.
 After the Virgil Card's endpoint invocation, the signs list is filled with an additional Virgil Cards service sign. All Virgil Card data is passed in the content_snapshot parameter, then the Virgil Cards service creates an additional sign item, with its own fingerprint used as a key to prove that it really created the Virgil Card.
+
 
 ## GET CARD ENDPOINT
 Returns the information about the Virgil Card by the its ID.
@@ -383,6 +388,7 @@ The content_snapshot parameter is a JSON representation that contains the follow
 
 ## ERRORS
 The Application uses standard HTTP response codes:
+
 |Error|Description|
 |---|---|
 |200	|Success|
@@ -395,12 +401,14 @@ The Application uses standard HTTP response codes:
 
 ### HTTP 500. Server error
 This status is returned in extremely rare cases of internal application errors
+
 |Error|Description|
 |---|---|
 |10000	| Internal application error|
 
 ### HTTP 401. Auth error
 This status is returned on authorization errors
+
 |Error|Description|
 |---|---|
 |20300	|The Virgil access token or token header was not specified or is invalid|
@@ -410,11 +418,13 @@ This status is returned on authorization errors
 
 ### HTTP 403. Forbidden
 This status is returned when a request is not granted permission to the resource
+
 |Error|Description|
 |---|---|
 |20500	|The Virgil Card is not available in this application|
 
 ### HTTP 400. Request error
+
 |Error|Description|
 |---|---|
 |30000	|JSON specified as a request is invalid|
