@@ -18,6 +18,7 @@ Authorization: VIRGIL { YOUR_APPLICATION_TOKEN }
 ```
 
 Authorization has the following parameters:
+
 |Parameter|Description|
 |---|---|
 |Authorization: required|This parameter indicates that the endpoint needs an authorization.|
