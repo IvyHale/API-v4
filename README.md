@@ -222,6 +222,7 @@ https://cards-ro.virgilsecurity.com/v4/card/actions/search
 ```
 
 ### Parameters:
+|---|---|
 |identities*|This parameter is an email of a confirmed Virgil Card.|
 |identity_type|This is an optional request parameter, which specifies the identity_type of a Virgil Card to be found.|
 |scope|This optional request parameter specifies the scope to perform the search on either "global" or "application". The default value is "application".|
@@ -265,6 +266,7 @@ some code?
 ```
 
 ### Parameters:
+|---|---|
 |id|This parameter is the id of the Virgil Card to be removed.|
 |revocation_reason|Contains one of the values from the list: "unspecified" or "compromised".|
 |meta.signs|This parameter must contain an entry with the application sign for all the Virgil Cards which have their scope value set to "application"|
@@ -316,7 +318,7 @@ Authorization          Required
 ```
 
 ### Parameters:
-
+|---|---|
 |content_snapshot|The CSR of the destination Virgil Card. This means that it's required to pass a value already passed.|
 |meta.signs|The collection with one mandatory item where the key must be the same Virgil Card ID that is specified in the URI. Also, the value must be the Base64-encoded digital sign of the content_snapshot by the source Virgil Card private key.|
 
@@ -369,6 +371,7 @@ The content_snapshot parameter is a JSON representation that contains the follow
 ```
 
 ### Parameters:
+|---|---|
 |id	|This parameter is the id of the Virgil Card with the relation that is supposed to be removed.|
 |revocation_reason|This is the optional parameter with the code from the list: "unspecified" or "compromised"|
 |meta.signs	|The collection with one mandatory item where the key must be the same Virgil Card id that is specified in the URI. Also, the value must be the Base64-encoded digital sign of the content_snapshot by the source Virgil Card private key.|
@@ -376,6 +379,7 @@ The content_snapshot parameter is a JSON representation that contains the follow
 
 ## ERRORS
 The Application uses standard HTTP response codes:
+|---|---|
 |200	|Success|
 |400	|Request error|
 |401	|Authentication error|
@@ -386,10 +390,12 @@ The Application uses standard HTTP response codes:
 
 ### HTTP 500. Server error
 This status is returned in extremely rare cases of internal application errors
+|---|---|
 |10000	| Internal application error|
 
 ### HTTP 401. Auth error
 This status is returned on authorization errors
+|---|---|
 |20300	|The Virgil access token or token header was not specified or is invalid|
 |20301	|The Virgil authenticator service responded with an error|
 |20302	|The Virgil access token validation has failed on the Virgil Authenticator service|
@@ -397,9 +403,11 @@ This status is returned on authorization errors
 
 ### HTTP 403. Forbidden
 This status is returned when a request is not granted permission to the resource
+|---|---|
 |20500	|The Virgil Card is not available in this application|
 
 ### HTTP 400. Request error
+|---|---|
 |30000	|JSON specified as a request is invalid|
 |30010	|A data inconsistency error|
 |30100	|Global Virgil Card identity type is invalid, because it can be only an 'email'|
