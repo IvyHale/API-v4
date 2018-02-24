@@ -222,6 +222,7 @@ https://cards-ro.virgilsecurity.com/v4/card/actions/search
 ```
 
 ### Parameters:
+|Parameter|Description|
 |---|---|
 |identities*|This parameter is an email of a confirmed Virgil Card.|
 |identity_type|This is an optional request parameter, which specifies the identity_type of a Virgil Card to be found.|
