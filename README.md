@@ -266,6 +266,7 @@ some code?
 ```
 
 ### Parameters:
+|Parameter|Description|
 |---|---|
 |id|This parameter is the id of the Virgil Card to be removed.|
 |revocation_reason|Contains one of the values from the list: "unspecified" or "compromised".|
@@ -318,6 +319,7 @@ Authorization          Required
 ```
 
 ### Parameters:
+|Parameter|Description|
 |---|---|
 |content_snapshot|The CSR of the destination Virgil Card. This means that it's required to pass a value already passed.|
 |meta.signs|The collection with one mandatory item where the key must be the same Virgil Card ID that is specified in the URI. Also, the value must be the Base64-encoded digital sign of the content_snapshot by the source Virgil Card private key.|
@@ -371,6 +373,7 @@ The content_snapshot parameter is a JSON representation that contains the follow
 ```
 
 ### Parameters:
+|Parameter|Description|
 |---|---|
 |id	|This parameter is the id of the Virgil Card with the relation that is supposed to be removed.|
 |revocation_reason|This is the optional parameter with the code from the list: "unspecified" or "compromised"|
@@ -379,6 +382,7 @@ The content_snapshot parameter is a JSON representation that contains the follow
 
 ## ERRORS
 The Application uses standard HTTP response codes:
+|Error|Description|
 |---|---|
 |200	|Success|
 |400	|Request error|
@@ -390,11 +394,13 @@ The Application uses standard HTTP response codes:
 
 ### HTTP 500. Server error
 This status is returned in extremely rare cases of internal application errors
+|Error|Description|
 |---|---|
 |10000	| Internal application error|
 
 ### HTTP 401. Auth error
 This status is returned on authorization errors
+|Error|Description|
 |---|---|
 |20300	|The Virgil access token or token header was not specified or is invalid|
 |20301	|The Virgil authenticator service responded with an error|
@@ -403,10 +409,12 @@ This status is returned on authorization errors
 
 ### HTTP 403. Forbidden
 This status is returned when a request is not granted permission to the resource
+|Error|Description|
 |---|---|
 |20500	|The Virgil Card is not available in this application|
 
 ### HTTP 400. Request error
+|Error|Description|
 |---|---|
 |30000	|JSON specified as a request is invalid|
 |30010	|A data inconsistency error|
