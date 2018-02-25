@@ -151,9 +151,8 @@ After the Virgil Card's endpoint invocation, the signs list is filled with an ad
 ### Parameters:
 |Parameter|Description|
 |---|---|
-|content_snapshot|All the data of the destination Virgil Card. (?)|
-|meta.signs|(?)|
-* — These parameters are mandatory
+|content_snapshot|A base64-encoded content snapshot message. (?)|
+|meta.signs|Contains the signer's fingerprint, which is represented as Keys and Base64-encoded signs and values.|
 
 
 ## GET CARD ENDPOINT
