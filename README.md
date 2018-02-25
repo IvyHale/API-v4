@@ -107,7 +107,6 @@ Beware that to create a Global Virgil Card, it's mandatory to perform a call to 
 The request that creates a Virgil Card contains two signed items: for the application holder and for the application.
 
 
-
 ### Request Info
 ```
 HTTP Request method    POST
@@ -148,6 +147,13 @@ Authorization          Required
 }
 ```
 After the Virgil Card's endpoint invocation, the signs list is filled with an additional Virgil Cards service sign. All Virgil Card data is passed in the content_snapshot parameter, then the Virgil Cards service creates an additional sign item, with its own fingerprint used as a key to prove that it really created the Virgil Card.
+
+### Parameters:
+|Parameter|Description|
+|---|---|
+|content_snapshot|All the data of the destination Virgil Card. (?)|
+|meta.signs|(?)|
+* — These parameters are mandatory
 
 
 ## GET CARD ENDPOINT
